@@ -11,3 +11,4 @@ class BillPayment(db.Model):
 
     def __repr__(self):
         return f' Bill : {self.price}'
+    
