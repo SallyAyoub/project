@@ -45,3 +45,5 @@ class EmployeeSchema(Schema):
     role = fields.String()
     work_status = fields.String()
     orders = fields.Nested(OrderSchema, many=True)
+
+    
