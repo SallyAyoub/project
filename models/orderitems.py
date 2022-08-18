@@ -10,3 +10,4 @@ class OrderItems(db.Model):
 
     def __repr__(self):
         return f'Items in Order {self.quantity}'
+    
