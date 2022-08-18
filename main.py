@@ -18,3 +18,5 @@ if __name__ == "__main__":
     ma.init_app(app)
     connexion_app.add_api('coffeshop.yaml')
     app.run(debug=True, host='0.0.0.0')
+    
+    
