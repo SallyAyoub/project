@@ -43,3 +43,4 @@ def create_bill(order: Order):
 
     except Exception:
         return 'There was an issue adding the bill'
+    
