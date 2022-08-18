@@ -1,0 +1,11 @@
+.idea/
+orders
+orders.json
+venv/
+code.txt
+data.txt
+test.db
+database.py
+ma.py
+backup-yaml-file
+__pycache__/
