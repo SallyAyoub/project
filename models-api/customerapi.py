@@ -102,3 +102,4 @@ def update_customer_data(customer_data: dict, id: int) -> None:
     customer.name = customer_data['name']
     customer.phoneNumber = customer_data['phoneNumber']
     db.session.commit()
+    
