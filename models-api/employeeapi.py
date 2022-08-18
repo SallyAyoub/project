@@ -102,3 +102,4 @@ def update_employee_data(employee_data: dict, id: int) -> None:
     employee.role = employee_data['role']
     employee.work_status = employee_data['work_status']
     db.session.commit()
+    
