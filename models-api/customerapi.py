@@ -1,7 +1,8 @@
 from flask import jsonify, Response
 from database import db
 from models.customer import Customer
-from schemas import CustomerSchema
+from models.order import Order
+from schemas import CustomerSchema, OrderSchema
 
 
 def list_customers():
@@ -102,4 +103,13 @@ def update_customer_data(customer_data: dict, id: int) -> None:
     customer.name = customer_data['name']
     customer.phoneNumber = customer_data['phoneNumber']
     db.session.commit()
-    
+
+
+def get_orders(*args, **kwargs):
+    """
+    get_orders will return all the order records stored in the orders table
+    """
+    id = kwargs.get("id")
+    order_schema = OrderSchema(many=True)
+    orders = Order.query.filter_by(customer_id=id).all()
+    return jsonify(order_schema.dump(orders))

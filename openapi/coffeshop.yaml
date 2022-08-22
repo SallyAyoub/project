@@ -8,7 +8,7 @@ paths:
   /employees:
     get:
       summary: Lists all employees
-      operationId: models-api.employeeapi.list_employees
+      operationId: modelsapi.employeeapi.list_employees
       responses:
         '200':
           description: A list of the employees in the server
@@ -18,7 +18,7 @@ paths:
                 $ref: "#/components/schemas/employees"
     post:
       summary: Create an employee
-      operationId: models-api.employeeapi.add_employee
+      operationId: modelsapi.employeeapi.add_employee
       requestBody:
         content:
           application/json:
@@ -41,7 +41,7 @@ paths:
   /employees/{id}:
     get:
       summary: Info for a specific employee
-      operationId: models-api.employeeapi.employee_details
+      operationId: modelsapi.employeeapi.employee_details
       parameters:
         - name: id
           in: path
@@ -64,7 +64,7 @@ paths:
                 $ref: "#/components/schemas/error"
     put:
       summary: update Info for a specific employee
-      operationId: models-api.employeeapi.update_employee
+      operationId: modelsapi.employeeapi.update_employee
       requestBody:
         content:
           application/json:
@@ -90,11 +90,34 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/error"
-
+  /employees/{id}/orders:
+    get:
+      summary: Info for a specific bill order
+      operationId: modelsapi.employeeapi.get_orders
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The id of the employee to retrieve its oerders
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: retrieving the employee orders information with the ID was successful
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/order"
+        '404':
+          description: the request was not valid, bill doesn't exist
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/error"
   /items:
     get:
       summary: Lists all items in he menu
-      operationId: models-api.itemapi.list_items
+      operationId: modelsapi.itemapi.list_items
       responses:
         '200':
           description: A list of the items in the server
@@ -104,7 +127,7 @@ paths:
                 $ref: "#/components/schemas/items"
     post:
       summary: Create an item
-      operationId: models-api.itemapi.add_item
+      operationId: modelsapi.itemapi.add_item
       requestBody:
         content:
           application/json:
@@ -126,7 +149,7 @@ paths:
   /items/{id}:
       get:
         summary: Info for a specific item
-        operationId: models-api.itemapi.item_details
+        operationId: modelsapi.itemapi.item_details
         parameters:
           - name: id
             in: path
@@ -149,7 +172,7 @@ paths:
                   $ref: "#/components/schemas/error"
       put:
         summary: update Info for a specific item
-        operationId: models-api.itemapi.update_item
+        operationId: modelsapi.itemapi.update_item
         requestBody:
           content:
             application/json:
@@ -177,7 +200,7 @@ paths:
                   $ref: "#/components/schemas/error"
       delete:
         summary: delete the item with the id
-        operationId: models-api.itemapi.delete_item
+        operationId: modelsapi.itemapi.delete_item
         parameters:
           - name: id
             in: path
@@ -197,7 +220,7 @@ paths:
   /customers:
     get:
       summary: Lists all customers in the server
-      operationId: models-api.customerapi.list_customers
+      operationId: modelsapi.customerapi.list_customers
       responses:
         '200':
           description: A list of the customers in the server
@@ -207,7 +230,7 @@ paths:
                 $ref: "#/components/schemas/items"
     post:
       summary: Create a customer object
-      operationId: models-api.customerapi.add_customer
+      operationId: modelsapi.customerapi.add_customer
       requestBody:
         content:
           application/json:
@@ -230,7 +253,7 @@ paths:
   /customers/{id}:
       get:
         summary: Info for a specific customer
-        operationId: models-api.customerapi.customer_details
+        operationId: modelsapi.customerapi.customer_details
         parameters:
           - name: id
             in: path
@@ -253,7 +276,7 @@ paths:
                   $ref: "#/components/schemas/error"
       put:
         summary: update Info for a specific customer
-        operationId: models-api.customerapi.update_customer
+        operationId: modelsapi.customerapi.update_customer
         requestBody:
           content:
             application/json:
@@ -279,10 +302,34 @@ paths:
               application/json:
                 schema:
                   $ref: "#/components/schemas/error"
+  /customers/{id}/orders:
+    get:
+      summary: Info for a specific bill order
+      operationId: modelsapi.customerapi.get_orders
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The id of the customer to retrieve its oerders
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: retrieving the customer orders information with the ID was successful
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/order"
+        '404':
+          description: the request was not valid, bill doesn't exist
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/error"
   /orders:
     get:
       summary: Lists all orders in the server
-      operationId: models-api.orderapi.list_orders
+      operationId: modelsapi.orderapi.list_orders
       responses:
         '200':
           description: A list of the orders in the server
@@ -292,7 +339,7 @@ paths:
                 $ref: "#/components/schemas/orders"
     post:
       summary: Create an order object
-      operationId: models-api.orderapi.add_order
+      operationId: modelsapi.orderapi.add_order
       requestBody:
         content:
           application/json:
@@ -315,7 +362,7 @@ paths:
   /orders/{id}:
     get:
       summary: Info for a specific order
-      operationId: models-api.orderapi.order_details
+      operationId: modelsapi.orderapi.order_details
       parameters:
         - name: id
           in: path
@@ -338,7 +385,7 @@ paths:
                 $ref: "#/components/schemas/error"
     put:
       summary: update Info for a specific order
-      operationId: models-api.orderapi.update_order
+      operationId: modelsapi.orderapi.update_order
       requestBody:
         content:
           application/json:
@@ -366,7 +413,7 @@ paths:
                 $ref: "#/components/schemas/error"
     delete:
       summary: cancel a specific order
-      operationId: models-api.orderapi.delete_order
+      operationId: modelsapi.orderapi.delete_order
       parameters:
         - name: id
           in: path
@@ -390,7 +437,7 @@ paths:
   /orders/{id}/item:
     post:
       summary: add an item for a specific order
-      operationId: models-api.orderapi.add_item_to_order
+      operationId: modelsapi.orderapi.add_item_to_order
       requestBody:
         content:
           application/json:
@@ -416,10 +463,10 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/error"
-  /orders/{id}/item/{item_id}:
+  /orders/{id}/item/{record_id}:
     delete:
       summary: cancel a specific item in an order
-      operationId: models-api.orderapi.delete_item_from_order
+      operationId: modelsapi.orderapi.delete_item_from_order
       parameters:
         - name: id
           in: path
@@ -427,7 +474,7 @@ paths:
           description: The id of the order to update
           schema:
             type: integer
-        - name: item_id
+        - name: record_id
           in: path
           required: true
           description: The id of the item to cancel
@@ -449,7 +496,7 @@ paths:
   /bills/{id}:
     get:
       summary: Info for a specific bill
-      operationId: models-api.billapi.bill_details
+      operationId: modelsapi.billapi.bill_details
       parameters:
         - name: id
           in: path
@@ -470,6 +517,30 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/error"
+  /bills/{id}/order:
+    get:
+      summary: Info for a specific bill order
+      operationId: modelsapi.billapi.get_orders
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The id of the bill order to retrieve
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: retrieving the bill order information with the ID was successful
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/order"
+        '404':
+          description: the request was not valid, bill doesn't exist
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/error"
 
 components:
     schemas:
@@ -481,6 +552,7 @@ components:
           - phoneNumber
           - role
           - work_status
+          - address
         properties:
           id:
             type: integer
@@ -493,6 +565,9 @@ components:
             type: string
           work_status :
             type: string
+          address:
+            type: object
+            $ref: "#/components/schemas/address"
       item:
         type: object
         required:
@@ -606,6 +681,22 @@ components:
               format: int64
             customer_notes:
               type: string
+      address:
+        type: object
+        required:
+          - streetAddress
+          - city
+          - state
+          - postalCode
+        properties:
+          streetAddress:
+            type: string
+          city:
+            type: string
+          state:
+            type: string
+          postalCode:
+            type: string
       employees:
         type: array
         items:
@@ -629,4 +720,3 @@ components:
         properties:
           error:
             type: string
-            

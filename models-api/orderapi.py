@@ -8,6 +8,7 @@ from models.item import Item
 from models.order import Order
 from models.orderitems import OrderItems
 from schemas import OrderSchema
+from modelsapi import billapi
 
 
 def list_orders():
@@ -65,7 +66,7 @@ def add_order(*args, **kwargs):
             db.session.commit()
         except Exception:
             return 'There was an issue adding the order'
-    BillPayment.create_bill(order)
+    billapi.create_bill(order)
     return {"Order ID": order.id}, 201
 
 
@@ -170,10 +171,10 @@ def delete_item_from_order(*args, **kwargs):
         from the order
     """
     order_id = kwargs.get("id")
-    item_id = kwargs.get("item_id")
-    order_item = OrderItems.query.filter_by(order_id=order_id, item_id=item_id).first()
+    record_id = kwargs.get("record_id")
+    order_item = OrderItems.query.filter_by(id=record_id).first()
     bill = BillPayment.query.filter_by(order_id=order_id).first()
-    item = Item.query.filter_by(id=item_id).first()
+    item = Item.query.filter_by(id=order_item.item_id).first()
     bill.price -= (order_item.quantity * item.price)
     db.session.delete(order_item)
     db.session.commit()

@@ -7,7 +7,7 @@ from models.order import Order
 from models.orderitems import OrderItems
 from datetime import datetime, timezone
 
-from schemas import BillSchema
+from schemas import BillSchema, OrderSchema
 
 
 def bill_details(id: int):
@@ -43,4 +43,13 @@ def create_bill(order: Order):
 
     except Exception:
         return 'There was an issue adding the bill'
-    
+
+
+def get_orders(*args, **kwargs):
+    """
+    get_orders will return all the order records stored in the orders table
+    """
+    id = kwargs.get("id")
+    order_schema = OrderSchema()
+    bill = BillPayment.query.filter_by(order_id=id).first()
+    return jsonify(order_schema.dump(bill.orders))

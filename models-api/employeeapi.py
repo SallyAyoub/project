@@ -1,7 +1,10 @@
 from flask import Response, jsonify
 from database import db
+from models.address import Address
 from models.employee import Employee
-from schemas import EmployeeSchema
+from models.order import Order
+from schemas import EmployeeSchema, OrderSchema
+
 
 def list_employees():
     """
@@ -36,9 +39,12 @@ def add_employee(*args, **kwargs):
         return {"Error": "The employee you're are trying to add already exists"}, 500
 
     else:
+        address = Address(**employee_data_dictionary['address'], employee_id=employee_data_dictionary['id'])
+        employee_data_dictionary.pop('address')
         employee = Employee(**employee_data_dictionary)
         try:
             db.session.add(employee)
+            db.session.add(address)
             db.session.commit()
         except Exception:
             return 'There was an issue adding the employee data'
@@ -101,5 +107,20 @@ def update_employee_data(employee_data: dict, id: int) -> None:
     employee.phoneNumber = employee_data['phoneNumber']
     employee.role = employee_data['role']
     employee.work_status = employee_data['work_status']
+
+    address = Address.query.filter_by(employee_id=id).first()
+    address.streetAddress = employee_data['address']['streetAddress']
+    address.city = employee_data['address']['city']
+    address.state = employee_data['address']['state']
+    address.postalCode = employee_data['address']['postalCode']
     db.session.commit()
-    
+
+
+def get_orders(*args, **kwargs):
+    """
+    get_orders will return all the order records stored in the orders table
+    """
+    id = kwargs.get("id")
+    order_schema = OrderSchema(many=True)
+    orders = Order.query.filter_by(employee_id=id)
+    return jsonify(order_schema.dump(orders))

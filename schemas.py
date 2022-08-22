@@ -8,6 +8,7 @@ class ItemSchema(Schema):
 
 
 class OrderItemsSchema(Schema):
+    id = fields.Integer()
     item_id = fields.Integer()
     quantity = fields.Integer()
     description = fields.String()
@@ -23,19 +24,21 @@ class OrderSchema(Schema):
 
 
 class BillSchema(Schema):
-    order_id = fields.Integer()
-    customer_id = fields.Integer()
-    employee_id = fields.Integer()
     price = fields.Float()
     date_time = fields.DateTime()
-    orders = fields.Nested(OrderSchema)
 
 
 class CustomerSchema(Schema):
     id = fields.Integer()
     name = fields.String()
     phoneNumber = fields.String()
-    orders = fields.Nested(OrderSchema, many=True)
+
+
+class AddressSchema(Schema):
+    streetAddress = fields.String()
+    city = fields.String()
+    state = fields.String()
+    postalCode = fields.String()
 
 
 class EmployeeSchema(Schema):
@@ -44,6 +47,4 @@ class EmployeeSchema(Schema):
     phoneNumber = fields.String()
     role = fields.String()
     work_status = fields.String()
-    orders = fields.Nested(OrderSchema, many=True)
-
-    
+    address = fields.Nested(AddressSchema)
