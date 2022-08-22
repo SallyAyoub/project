@@ -48,3 +48,6 @@ class EmployeeSchema(Schema):
     role = fields.String()
     work_status = fields.String()
     address = fields.Nested(AddressSchema)
+
+
+

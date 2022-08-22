@@ -113,3 +113,6 @@ def get_orders(*args, **kwargs):
     order_schema = OrderSchema(many=True)
     orders = Order.query.filter_by(customer_id=id).all()
     return jsonify(order_schema.dump(orders))
+
+
+

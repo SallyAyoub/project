@@ -12,3 +12,6 @@ class Customer(db.Model):
         return f' Customer: {self.name}'
 
 
+
+
+
